@@ -28,6 +28,11 @@ const Navbar = () => {
           <li className="py-1">CONTACT</li>
           <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
         </NavLink>
+
+        {/* <button type="button" onClick={getPrediction}>Predict</button> */}
+
+
+        <NavLink to="/disease" className="flex items-center bg-blue px-8 py-3 rounded-full text-gray-600 text-sm m-auto md:m-0 hover:scale-105 transition-all duration-300">Button</NavLink>
       </ul>
       <div className="flex items-center gap-4">
         {token ? (
