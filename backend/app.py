@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)  # 👈 Add this line to allow CORS from any frontend
 
 # Load your model
-model = pickle.load(open('models/heart.pkl', 'rb'))
+model = pickle.load(open('mlModels/heart.pkl', 'rb'))
 
 @app.route('/', methods=['POST'])
 def predict():
