@@ -11,11 +11,17 @@ import MyAppointment from "./pages/MyAppointment";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Disease from "./components/Disease";
-import Form from './components/Form';  
-import Result from './components/Result';  
+import Result from "./components/Result";
+
+// Importing all Forms
+import HeartForm from "./components/HeartForm";
+import DiabetesForm from "./components/DiabetesForm";
+import LiverForm from "./components/LiverForm";
+import ParkinsonsForm from "./components/ParkinsonsForm";
+import BreastCancerForm from "./components/BreastCancerForm";
 
 const App = () => {
-  const [prediction, setPrediction] = useState("");  // State for prediction result
+  const [prediction, setPrediction] = useState(""); // For old method, but now we navigate with state
 
   return (
     <div className="mx-4 sm:mx-[10%]">
@@ -31,17 +37,15 @@ const App = () => {
         <Route path="/appointment/:docId" element={<Appointment />} />
         <Route path="/disease" element={<Disease />} />
 
-        {/* Heart Disease Prediction Form */}
-        <Route
-          path="/predict-heart-disease"
-          element={<Form setPrediction={setPrediction} />}
-        />
+        {/* Routes for each Disease Prediction Form */}
+        <Route path="/predict-heart-disease" element={<HeartForm />} />
+        <Route path="/predict-diabetes" element={<DiabetesForm />} />
+        <Route path="/predict-liver" element={<LiverForm />} />
+        <Route path="/predict-parkinsons" element={<ParkinsonsForm />} />
+        <Route path="/predict-breast-cancer" element={<BreastCancerForm />} />
 
         {/* Prediction Result Page */}
-        <Route
-          path="/prediction-result"
-          element={<Result predictionText={prediction} />}
-        />
+        <Route path="/result" element={<Result />} />
       </Routes>
       <Footer />
     </div>

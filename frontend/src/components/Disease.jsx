@@ -1,42 +1,49 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Disease() {
-  const [features, setFeatures] = useState(['', '', '', '']);
-  const [prediction, setPrediction] = useState(null);
+const Disease = () => {
+  const [selectedDisease, setSelectedDisease] = useState("");
+  const navigate = useNavigate();
 
-  const handleChange = (index, value) => {
-    const updatedFeatures = [...features];
-    updatedFeatures[index] = value;
-    setFeatures(updatedFeatures);
+  const handleSelect = (event) => {
+    setSelectedDisease(event.target.value);
   };
 
-  const getPrediction = async () => {
-    const numericFeatures = features.map(parseFloat);
-    const response = await fetch('http://localhost:5000/predict', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ features: numericFeatures }),
-    });
-    const result = await response.json();
-    setPrediction(result.prediction);
+  const handleSubmit = () => {
+    if (selectedDisease) {
+      // Navigate to the prediction form for the selected disease
+      navigate(`/predict-${selectedDisease}`);
+    }
   };
 
   return (
-    <div>
-      <h2>Enter Features</h2>
-      {features.map((feature, index) => (
-        <input
-          key={index}
-          type="text"
-          value={feature}
-          onChange={(e) => handleChange(index, e.target.value)}
-          placeholder={`Feature ${index + 1}`}
-        />
-      ))}
-      <button onClick={getPrediction}>Predict</button>
-      {prediction && <p>Prediction: {prediction}</p>}
+    <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-lg">
+      <h2 className="text-2xl font-bold text-center mb-6">Select Disease for Prediction</h2>
+
+      <div className="mb-6">
+        <select
+          value={selectedDisease}
+          onChange={handleSelect}
+          className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full"
+        >
+          <option value="">Select Disease</option>
+          <option value="heart-disease">Heart Disease</option>
+          <option value="diabetes">Diabetes</option>
+          <option value="kidney-disease">Kidney Disease</option>
+          <option value="stroke">Stroke</option>
+          {/* Add more diseases as required */}
+        </select>
+      </div>
+
+      <button
+        onClick={handleSubmit}
+        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+        disabled={!selectedDisease}
+      >
+        {selectedDisease ? "Proceed to Prediction" : "Please Select a Disease"}
+      </button>
     </div>
   );
-}
+};
 
 export default Disease;
